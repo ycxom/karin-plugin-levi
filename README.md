@@ -28,3 +28,6 @@ pnpm install --filter=karin-plugin-levi
 ```bash
 node . --dev
 ```
+
+## Friendly Links
+https://github.com/Karinjs/Karin
