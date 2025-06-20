@@ -1,12 +1,32 @@
 {
   "name": "karin-plugin-levi",
   "version": "1.1.0",
-  "author": "hanhan",
+  "author": "hanhan258",
   "type": "module",
   "main": "index.js",
+  "description": "karin plugin for levi",
+  "homepage": "https://github.com/hanhan258/karin-plugin-levi",
+  "bugs": {
+    "url": "https://github.com/hanhan258/karin-plugin-levi/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hanhan258/karin-plugin-levi.git"
+  },
+  "scripts": {
+    "build": "echo skip build",             
+    "pub": "npm publish --access public",
+    "sort": "npx sort-package-json"
+  },
   "dependencies": {
     "he": "^1.2.0",
     "pingman": "^2.0.0"
+  },
+  "devDependencies": {
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
   },
   "karin": {
     "apps": [
