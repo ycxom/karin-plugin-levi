@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/hanhan258/karin-plugin-levi/compare/v1.0.0...v1.1.0) (2025-06-20)
+
+
+### Features
+
+* 删除weather功能 ([1475a46](https://github.com/hanhan258/karin-plugin-levi/commit/1475a46b51dde74570ae185f9dbade086c3f8fae))
+
 ## 1.0.0 (2025-06-20)
 
 
