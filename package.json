@@ -1,6 +1,6 @@
 {
   "name": "karin-plugin-levi",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": "hanhan258",
   "type": "module",
   "main": "index.js",
@@ -14,7 +14,7 @@
     "url": "git+https://github.com/hanhan258/karin-plugin-levi.git"
   },
   "scripts": {
-    "build": "echo skip build",             
+    "build": "echo skip build",
     "pub": "npm publish --access public",
     "sort": "npx sort-package-json"
   },
@@ -22,8 +22,7 @@
     "he": "^1.2.0",
     "pingman": "^2.0.0"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org"

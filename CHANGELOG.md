@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/hanhan258/karin-plugin-levi/compare/v1.1.0...v1.1.1) (2025-06-20)
+
+
+### Bug Fixes
+
+* 修复 package.json 脚本导致发包失败的问题 ([36d7f6d](https://github.com/hanhan258/karin-plugin-levi/commit/36d7f6d557d78f98207ff9e5d00a578c2bdb425e))
+
 ## [1.1.0](https://github.com/hanhan258/karin-plugin-levi/compare/v1.0.0...v1.1.0) (2025-06-20)
 
 
