@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/hanhan258/karin-plugin-levi/compare/v1.1.1...v1.1.2) (2025-06-20)
+
+
+### Bug Fixes
+
+* add Friendly Links ([fd8e0ef](https://github.com/hanhan258/karin-plugin-levi/commit/fd8e0efef48ffd2b1a2cf973d8c09a423a518466))
+
 ## [1.1.1](https://github.com/hanhan258/karin-plugin-levi/compare/v1.1.0...v1.1.1) (2025-06-20)
 
 
