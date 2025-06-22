@@ -1,6 +1,12 @@
 import { karin, segment } from 'node-karin'
+import { fileURLToPath } from 'url'
 import fs from 'fs'
 import path from 'path'
+
+// 获取插件目录路径
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const join = (...paths) => path.join(...paths).replace(/\\/g, '/')
+
 
 const API_CONFIG = {
   BASE_URL: 'https://ai.ycxom.top:3002',
@@ -180,153 +186,6 @@ async function registerDynamicCommands() {
   }
 }
 initPlugin()
-export const showExpressionHelp = karin.command(/^#?表情包(帮助|菜单)$/, async (e) => {
-  try {
-    if (!apiData) {
-      return await e.reply('❌ API数据未加载，请尝试 #更新表情包API列表')
-    }
-
-    const expressionList = apiData.pictureCategories?.['表情包'] || []
-    if (expressionList.length === 0) {
-      return await e.reply('❌ 暂无可用表情包')
-    }
-
-    const helpText = [
-      '=== 📦 表情包菜单 ===',
-      `📊 共 ${expressionList.length} 种表情包`,
-      '',
-      '📝 可用表情包：',
-      ...formatList(expressionList),
-      '',
-      '🎯 使用方法：',
-      '• 直接发送表情包名称',
-      '• #憨憨随机表情包 - 获取随机表情包',
-      '',
-      `⏰ 数据更新: ${getUpdateTime()}`
-    ].join('\n')
-
-    return await e.reply(helpText)
-  } catch (error) {
-    logger.error('[表情包帮助] 获取失败:', error)
-    return await e.reply('❌ 表情包菜单获取失败')
-  }
-}, { name: 'showExpressionHelp' })
-
-export const showPictureHelp = karin.command(/^#?憨憨图片(帮助|菜单)$/, async (e) => {
-  try {
-    if (!apiData) {
-      return await e.reply('❌ API数据未加载，请尝试 #更新图片API列表')
-    }
-
-    const categories = apiData.pictureCategories || {}
-    let helpText = ['=== 🖼️ 憨憨图片菜单 ===']
-
-    Object.entries(categories).forEach(([categoryName, items]) => {
-      helpText.push(`\n📁 ${categoryName} (${items.length}个):`)
-      helpText.push(...formatList(items, '  '))
-    })
-
-    helpText.push('\n🎯 使用方法：')
-    helpText.push('• 直接发送图片名称')
-    helpText.push('• #随机+分类名 获取随机图片')
-    helpText.push(`\n⏰ 数据更新: ${getUpdateTime()}`)
-
-    return await e.reply(helpText.join('\n'))
-  } catch (error) {
-    logger.error('[图片帮助] 获取失败:', error)
-    return await e.reply('❌ 图片菜单获取失败')
-  }
-}, { name: 'showPictureHelp' })
-
-export const showGirlHelp = karin.command(/^#?小姐姐(帮助|菜单)$/, async (e) => {
-  try {
-    if (!apiData) {
-      return await e.reply('❌ API数据未加载，请尝试 #更新图片API列表')
-    }
-
-    const girlList = apiData.pictureCategories?.['三次元'] || []
-    if (girlList.length === 0) {
-      return await e.reply('❌ 暂无可用小姐姐类型')
-    }
-
-    const helpText = [
-      '=== 👧 小姐姐菜单 ===',
-      `📊 共 ${girlList.length} 种类型`,
-      '',
-      '💕 可用类型：',
-      ...formatList(girlList),
-      '',
-      '🎯 使用方法：',
-      '• 直接发送类型名称',
-      '• #随机三次元 - 获取随机小姐姐',
-      '',
-      `⏰ 数据更新: ${getUpdateTime()}`
-    ].join('\n')
-
-    return await e.reply(helpText)
-  } catch (error) {
-    logger.error('[小姐姐帮助] 获取失败:', error)
-    return await e.reply('❌ 小姐姐菜单获取失败')
-  }
-}, { name: 'showGirlHelp' })
-
-export const showVideoHelp = karin.command(/^#?视频(帮助|菜单)$/, async (e) => {
-  try {
-    if (!apiData) {
-      return await e.reply('❌ API数据未加载，请尝试 #更新视频API列表')
-    }
-
-    const categories = apiData.videoCategories || {}
-    let helpText = ['=== 🎬 视频菜单 ===']
-
-    Object.entries(categories).forEach(([categoryName, items]) => {
-      helpText.push(`\n📁 ${categoryName} (${items.length}个):`)
-      helpText.push(...formatList(items, '  '))
-    })
-
-    helpText.push('\n🎯 使用方法：')
-    helpText.push('• 发送 目录名+视频，如：baisi视频')
-    helpText.push('• #随机+分类名 获取随机视频')
-    helpText.push(`\n⏰ 数据更新: ${getUpdateTime()}`)
-
-    return await e.reply(helpText.join('\n'))
-  } catch (error) {
-    logger.error('[视频帮助] 获取失败:', error)
-    return await e.reply('❌ 视频菜单获取失败')
-  }
-}, { name: 'showVideoHelp' })
-
-export const showBeautyVideoHelp = karin.command(/^#?美女视频(帮助|菜单)$/, async (e) => {
-  try {
-    if (!apiData) {
-      return await e.reply('❌ API数据未加载，请尝试 #更新视频API列表')
-    }
-
-    const beautyVideoList = apiData.videoCategories?.['美女视频'] || []
-    if (beautyVideoList.length === 0) {
-      return await e.reply('❌ 暂无可用美女视频类型')
-    }
-
-    const helpText = [
-      '=== 💃 美女视频菜单 ===',
-      `📊 共 ${beautyVideoList.length} 种类型`,
-      '',
-      '💕 可用类型：',
-      ...formatList(beautyVideoList),
-      '',
-      '🎯 使用方法：',
-      '• 发送 类型名+视频，如：baisi视频',
-      '• #随机美女视频 - 获取随机美女视频',
-      '',
-      `⏰ 数据更新: ${getUpdateTime()}`
-    ].join('\n')
-
-    return await e.reply(helpText)
-  } catch (error) {
-    logger.error('[美女视频帮助] 获取失败:', error)
-    return await e.reply('❌ 美女视频菜单获取失败')
-  }
-}, { name: 'showBeautyVideoHelp' })
 
 export const updateApiList = karin.command(/^#?憨憨?更新(表情包|图片|视频)?API列表$/, async (e) => {
   try {
@@ -435,3 +294,114 @@ export const getRandomVideoByCategory = karin.command(/^#?憨憨?随机(美女�
     return await e.reply('❌ 随机视频获取失败，请稍后重试')
   }
 }, { name: 'getRandomVideoByCategory' })
+
+
+
+// 菜单渲染公用方法（新增）
+async function renderMenu(e, menuTitle, commandsList, usageExamples, updateTime) {
+  const templateData = {
+    type: menuTitle,
+    total: commandsList.length,
+    commands: commandsList,
+    usage: usageExamples,
+    updateTime,
+    scale: scale(1.1)
+  }
+
+  const img = await karin.render({
+    name: 'hanhan-media-menu',
+    file: join(__dirname, '../../resources/templates/menu.html'),
+    data: templateData,
+    pageGotoParams: { waitUntil: 'networkidle0' },
+    quality: 100
+  })
+
+  return await e.reply(segment.image(`base64://${img}`))
+}
+
+const scale = (pct = 1) => `style='transform:scale(${pct})'`
+
+// 表情包菜单（使用渲染功能）
+export const showExpressionHelp = karin.command(/^#?表情包(帮助|菜单)$/, async (e) => {
+  try {
+    if (!apiData) {
+      return await e.reply('❌ API数据未加载，请尝试 #更新表情包API列表')
+    }
+
+    const expressionList = apiData.pictureCategories?.['表情包'] || []
+    if (expressionList.length === 0) {
+      return await e.reply('❌ 暂无可用表情包')
+    }
+
+    return await renderMenu(e, '📦 表情包菜单', expressionList, ['直接发送表情包名称', '#憨憨随机表情包'], getUpdateTime())
+  } catch (error) {
+    logger.error('[表情包帮助] 渲染失败:', error)
+    return await e.reply('❌ 表情包菜单获取失败')
+  }
+})
+
+// 图片菜单（使用渲染功能）
+export const showPictureHelp = karin.command(/^#?憨憨图片(帮助|菜单)$/, async (e) => {
+  try {
+    if (!apiData) {
+      return await e.reply('❌ API数据未加载，请尝试 #更新图片API列表')
+    }
+
+    const categories = apiData.pictureCategories || {}
+    const allPictureDirs = Object.values(categories).flat()
+
+    return await renderMenu(e, '🖼️ 图片菜单', allPictureDirs, ['直接发送图片目录名称', '#随机图片'], getUpdateTime())
+  } catch (error) {
+    logger.error('[图片帮助] 渲染失败:', error)
+    return await e.reply('❌ 图片菜单获取失败')
+  }
+})
+
+// 小姐姐菜单（使用渲染功能）
+export const showGirlHelp = karin.command(/^#?小姐姐(帮助|菜单)$/, async (e) => {
+  try {
+    if (!apiData) {
+      return await e.reply('❌ API数据未加载，请尝试 #更新图片API列表')
+    }
+
+    const girlList = apiData.pictureCategories?.['三次元'] || []
+
+    return await renderMenu(e, '👧 小姐姐菜单', girlList, ['直接发送类型名查看图片', '#随机三次元'], getUpdateTime())
+  } catch (error) {
+    logger.error('[小姐姐帮助] 渲染失败:', error)
+    return await e.reply('❌ 小姐姐菜单获取失败')
+  }
+})
+
+// 通用视频菜单（使用渲染功能）
+export const showVideoHelp = karin.command(/^#?视频(帮助|菜单)$/, async (e) => {
+  try {
+    if (!apiData) {
+      return await e.reply('❌ API数据未加载，请尝试 #更新视频API列表')
+    }
+
+    const categories = apiData.videoCategories || {}
+    const allVideoDirs = Object.values(categories).flat()
+
+    return await renderMenu(e, '🎬 视频菜单', allVideoDirs, ['发送 目录名+视频，查看视频', '#随机视频'], getUpdateTime())
+  } catch (error) {
+    logger.error('[视频帮助] 渲染失败:', error)
+    return await e.reply('❌ 视频菜单获取失败')
+  }
+})
+
+// 美女视频专用菜单（使用渲染功能）
+export const showBeautyVideoHelp = karin.command(/^#?美女视频(帮助|菜单)$/, async (e) => {
+  try {
+    if (!apiData) {
+      return await e.reply('❌ API数据未加载，请尝试 #更新视频API列表')
+    }
+
+    const beautyVideoList = apiData.videoCategories?.['美女视频'] || []
+
+    return await renderMenu(e, '💃 美女视频菜单', beautyVideoList, ['发送类型名+视频', '#随机美女视频'], getUpdateTime())
+  } catch (error) {
+    logger.error('[美女视频帮助] 渲染失败:', error)
+    return await e.reply('❌ 美女视频菜单获取失败')
+  }
+})
